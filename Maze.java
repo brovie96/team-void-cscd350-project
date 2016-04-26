@@ -1,6 +1,8 @@
+import java.util.ArrayList;
+
 /**
  * @author     Seth Riedel
- * @version    1.0
+ * @version    1.01
  */
 public class Maze {
    
@@ -34,7 +36,23 @@ public class Maze {
       maze = new boolean[level + 3][level + 3];
       verticalWalls = new boolean[level + 2][level + 3];
       horizontalWalls = new boolean[level + 3][level + 2];
-      maze[0][maze[0].length - 1] = true; //set starting position to bottom left of maze 
+      maze[0][maze[0].length - 1] = true; //set starting position to bottom left of maze
+      randomizeWalls(); 
+   }
+   
+   /**
+    * Randomizes the walls of the maze. (currently only the horizontal walls)
+    */
+   private void randomizeWalls() {
+      for(int j = 0; j < horizontalWalls[0].length; j++) {
+         int noWallIndex = (int) Math.floor(Math.random() * horizontalWalls.length);
+         for(int i = 0; i < horizontalWalls.length; i++) {
+            if(i != noWallIndex)
+               horizontalWalls[i][j] = true;
+            else
+               horizontalWalls[i][j] = false;
+         }
+      }
    }
    
    /**
@@ -143,17 +161,37 @@ public class Maze {
     */
    @Override
    public String toString() {
-      String s = "";
+      ArrayList<String> rows = new ArrayList<>();
+      ArrayList<String> hWalls = new ArrayList<>();
       for(int j = 0; j < maze[0].length; j++) {
+         String s = "";
          for(int i = 0; i < maze.length; i++) {
             if(maze[i][j])
                s += "*";
             else
                s += ".";
          }
-         s += "\n"; 
+         rows.add(s);
       }
-      s = s.substring(0, s.length() - 1);
+      for(int j = 0; j < horizontalWalls[0].length; j++) {
+         String s = "";
+         for(int i = 0; i < horizontalWalls.length; i++) {
+            if(horizontalWalls[i][j])
+               s += "_";
+            else
+               s += " ";
+         }
+         hWalls.add(s);
+      }
+      String s = "";
+      int i;
+      for(i = 0; i < hWalls.size(); i++) {
+         s += rows.get(i);
+         s += "\n";
+         s += hWalls.get(i);
+         s += "\n";
+      }
+      s += rows.get(i);
       return s;
    }
 }
