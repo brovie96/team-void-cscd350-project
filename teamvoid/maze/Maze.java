@@ -1,3 +1,5 @@
+package teamvoid.maze;
+
 import java.util.ArrayList;
 
 /**
