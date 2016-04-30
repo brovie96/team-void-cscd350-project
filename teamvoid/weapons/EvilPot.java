@@ -1,3 +1,5 @@
+package teamvoid.weapons;
+
 public class EvilPot extends A_MagicWeapon {
    
    /**

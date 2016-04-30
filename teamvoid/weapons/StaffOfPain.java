@@ -1,3 +1,5 @@
+package teamvoid.weapons;
+
 public class StaffOfPain extends A_MagicWeapon {
    
    /**

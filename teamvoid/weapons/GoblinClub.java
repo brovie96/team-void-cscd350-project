@@ -1,3 +1,5 @@
+package teamvoid.weapons;
+
 public class GoblinClub extends A_PhysicalWeapon {
    
    /**

@@ -1,3 +1,5 @@
+package teamvoid.weapons;
+
 public class Ring extends A_MagicWeapon {
    
    /**

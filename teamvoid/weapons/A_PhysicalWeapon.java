@@ -1,3 +1,5 @@
+package teamvoid.weapons;
+
 public abstract class A_PhysicalWeapon extends A_Weapon {
    
    /**

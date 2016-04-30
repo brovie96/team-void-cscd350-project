@@ -1,3 +1,5 @@
+package teamvoid.weapons;
+
 public abstract class A_Weapon {
    
    /**

@@ -1,3 +1,5 @@
+package teamvoid.weapons;
+
 public class Sword extends A_PhysicalWeapon {
    
    /**

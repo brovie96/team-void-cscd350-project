@@ -1,3 +1,5 @@
+package teamvoid.weapons;
+
 public class Spear extends A_PhysicalWeapon {
    
    /**
