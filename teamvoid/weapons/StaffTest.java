@@ -26,6 +26,6 @@ public class StaffTest {
 
 	@Test
 	public void testIsArmorPiercing() {
-		assertEquals(true, staff.isArmorPiercing());
+		assertEquals(false, staff.isArmorPiercing());
 	}
 }

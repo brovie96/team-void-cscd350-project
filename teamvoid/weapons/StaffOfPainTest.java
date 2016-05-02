@@ -26,6 +26,6 @@ public class StaffOfPainTest {
 
 	@Test
 	public void testIsArmorPiercing() {
-		assertEquals(true, staffOfPain.isArmorPiercing());
+		assertEquals(false, staffOfPain.isArmorPiercing());
 	}
 }

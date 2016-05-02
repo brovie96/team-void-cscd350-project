@@ -57,9 +57,9 @@ public abstract class A_Weapon {
    /**
     * Returns whether this weapon pierces armor.
     *
-    * @return The value of (isArmorPiercing || isMagic) [all magic weapons pierce armor]
+    * @return The value of isArmorPiercing
     */
    public boolean isArmorPiercing() {
-      return (isArmorPiercing || isMagic);
+      return isArmorPiercing;
    }
 }

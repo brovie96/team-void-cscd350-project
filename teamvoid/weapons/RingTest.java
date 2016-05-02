@@ -26,6 +26,6 @@ public class RingTest {
 
 	@Test
 	public void testIsArmorPiercing() {
-		assertEquals(true, ring.isArmorPiercing());
+		assertEquals(false, ring.isArmorPiercing());
 	}
 }

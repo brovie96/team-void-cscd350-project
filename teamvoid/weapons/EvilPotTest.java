@@ -26,6 +26,6 @@ public class EvilPotTest {
 
 	@Test
 	public void testIsArmorPiercing() {
-		assertEquals(true, evilPot.isArmorPiercing());
+		assertEquals(false, evilPot.isArmorPiercing());
 	}
 }

@@ -26,6 +26,6 @@ public class FireSpellbookTest {
 
 	@Test
 	public void testIsArmorPiercing() {
-		assertEquals(true, fireSpellbook.isArmorPiercing());
+		assertEquals(false, fireSpellbook.isArmorPiercing());
 	}
 }
