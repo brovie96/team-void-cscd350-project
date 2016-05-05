@@ -1,11 +1,9 @@
 package teamvoid.maze;
 
+import teamvoid.ui.I_UI;
+
 import java.util.ArrayList;
 
-/**
- * @author     Seth Riedel
- * @version    1.01
- */
 public class Maze {
    
    /**
@@ -25,6 +23,16 @@ public class Maze {
    private boolean[][] horizontalWalls;
    
    /**
+    * The party of heroes in the maze.
+    */
+   private Party party;
+   
+   /**
+    *
+    */
+   private I_UI ui;
+   
+   /**
     * Default constructor. Takes the level as an argument.
     * <p>
     * This constructor takes the level number as an argument and builds a
@@ -34,12 +42,14 @@ public class Maze {
     *
     * @param level the level number to be used, from 1 to 5
     */
-   public Maze(int level) {
+   public Maze(int level, Party party, I_UI ui) {
+      this.party = party;
+      this.ui = ui;
       maze = new boolean[level + 3][level + 3];
       verticalWalls = new boolean[level + 2][level + 3];
       horizontalWalls = new boolean[level + 3][level + 2];
       maze[0][maze[0].length - 1] = true; //set starting position to bottom left of maze
-      randomizeWalls(); 
+      randomizeWalls();
    }
    
    /**
@@ -179,7 +189,7 @@ public class Maze {
          String s = "";
          for(int i = 0; i < horizontalWalls.length; i++) {
             if(horizontalWalls[i][j])
-               s += "_";
+               s += "+";
             else
                s += " ";
          }
