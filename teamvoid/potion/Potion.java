@@ -1,4 +1,4 @@
-package TeamVoid.Potion;
+package teamvoid.potion;
 
 public class Potion {
    public Potion(){

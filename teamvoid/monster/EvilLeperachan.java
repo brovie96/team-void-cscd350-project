@@ -1,5 +1,5 @@
-package TeamVoid.Monster;
-import TeamVoid.Weapons.EvilPot;
+package teamvoid.monster;
+import teamvoid.weapons.EvilPot;
 
 public class EvilLeperachan extends A_Monster {
 

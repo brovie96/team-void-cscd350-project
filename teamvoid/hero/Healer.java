@@ -1,4 +1,4 @@
-package TeamVoid.Hero;
+package teamvoid.hero;
 
 public class Healer extends A_Hero {
    public Healer(){

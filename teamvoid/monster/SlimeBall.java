@@ -1,4 +1,4 @@
-package TeamVoid.Monster;
+package teamvoid.monster;
 
 public class SlimeBall extends A_Monster {
   

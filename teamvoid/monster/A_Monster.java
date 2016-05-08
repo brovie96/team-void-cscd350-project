@@ -1,4 +1,4 @@
-package TeamVoid.Monster;
+package teamvoid.monster;
 
 public abstract class A_Monster {
    protected int health;

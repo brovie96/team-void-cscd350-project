@@ -1,5 +1,5 @@
-package TeamVoid.party;
-import TeamVoid.Hero.A_Hero;
+package teamvoid.party;
+import teamvoid.hero.A_Hero;
 
 public class Party {
    A_Hero playerOne = null;

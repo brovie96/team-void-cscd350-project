@@ -1,5 +1,5 @@
-package TeamVoid.Monster;
-import TeamVoid.Weapons.StaffOfPain;
+package teamvoid.monster;
+import teamvoid.weapons.StaffOfPain;
 
 public class Necromancer extends A_Monster {
    private int magicDamage;

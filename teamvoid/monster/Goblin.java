@@ -1,5 +1,5 @@
-package TeamVoid.Monster;
-import TeamVoid.Weapons.GoblinClub;
+package teamvoid.monster;
+import teamvoid.weapons.GoblinClub;
 
 public class Goblin extends A_Monster {
    private int armor;

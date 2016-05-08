@@ -1,4 +1,4 @@
-package TeamVoid.Potion;
+package teamvoid.potion;
 
 public class HealthPotion extends Potion{
    private int healthPotion=3;

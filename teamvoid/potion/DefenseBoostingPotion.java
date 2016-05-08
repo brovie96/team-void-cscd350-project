@@ -1,4 +1,4 @@
-package TeamVoid.Potion;
+package teamvoid.potion;
 
 public class DefenseBoostingPotion extends Potion {
    private int defense = 2;

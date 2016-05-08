@@ -1,4 +1,4 @@
-package TeamVoid.Monster;
+package teamvoid.monster;
 
 public class Dragon extends A_Monster {
    private int magicDamage;

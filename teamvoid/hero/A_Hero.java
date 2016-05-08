@@ -1,4 +1,4 @@
-package TeamVoid.Hero;
+package teamvoid.hero;
 
 public abstract class A_Hero {
    protected int health;
