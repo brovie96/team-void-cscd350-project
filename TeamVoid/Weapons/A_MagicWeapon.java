@@ -1,4 +1,4 @@
-package TeamVoid.Weapons;
+package teamvoid.weapons;
 
 public abstract class A_MagicWeapon extends A_Weapon {
    
