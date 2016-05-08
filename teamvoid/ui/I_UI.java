@@ -1,5 +1,8 @@
 package teamvoid.ui;
 
+import teamvoid.hero.A_Hero;
+import teamvoid.monster.A_Monster;
+
 public interface I_UI {
    
    /**
