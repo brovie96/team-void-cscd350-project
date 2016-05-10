@@ -13,6 +13,7 @@ public class Warrior extends A_Hero {
       defense = 6;
       magicResist = 4;
       magicAttack = 4;
+      armor = 0;
    }
    public void setHealth(int healtha){
       health = healtha;
@@ -29,6 +30,9 @@ public class Warrior extends A_Hero {
    public void setMagicAttack(int magicAttacka){
       magicAttack = magicAttacka;
    }
+   public void setArmor(int armorr){
+      armor = armorr;
+   }
    public int getHealth(){
       return health;
    }
@@ -44,8 +48,10 @@ public class Warrior extends A_Hero {
    public int getMagicAttack(){
       return magicAttack;
    }
-   public String getTypeHero()
-   {
+   public int getArmor(){
+      return armor;
+   }
+   public String getTypeHero(){
       return "Warrior";
    }
    
