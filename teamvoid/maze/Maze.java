@@ -1,11 +1,12 @@
 package teamvoid.maze;
 
+import teamvoid.battle.BattleClass;
+import teamvoid.monster.*;
+import teamvoid.party.Party;
+import teamvoid.ui.I_UI;
+
 import java.util.ArrayList;
 
-/**
- * @author     Seth Riedel
- * @version    1.01
- */
 public class Maze {
    
    /**
@@ -15,44 +16,49 @@ public class Maze {
    private boolean[][] maze;
    
    /**
-    * All of the possible vertical wall locations.
+    * All of the possible (horizontal) wall locations.
     */
-   private boolean[][] verticalWalls;
+   private boolean[][] walls;
    
    /**
-    * All of the possible horizontal wall locations.
+    * The encounter rate for this maze, in percent chance.
     */
-   private boolean[][] horizontalWalls;
+   private int encounterRate;
+   
+   /**
+    * The party of heroes in the maze.
+    */
+   private Party party;
    
    /**
     * Default constructor. Takes the level as an argument.
     * <p>
     * This constructor takes the level number as an argument and builds a
     * new maze of size 4x4 for level 1, 5x5 for level 2, and so on, up to
-    * 8x8 for level 5. Additionally, it initializes the vertical and
-    * horizontal walls.
+    * 8x8 for level 5. Additionally, it initializes the walls.
     *
     * @param level the level number to be used, from 1 to 5
     */
-   public Maze(int level) {
+   public Maze(int level, Party party) {
+      this.party = party;
+      encounterRate = 10 * level;
       maze = new boolean[level + 3][level + 3];
-      verticalWalls = new boolean[level + 2][level + 3];
-      horizontalWalls = new boolean[level + 3][level + 2];
+      walls = new boolean[level + 3][level + 2];
       maze[0][maze[0].length - 1] = true; //set starting position to bottom left of maze
-      randomizeWalls(); 
+      randomizeWalls();
    }
    
    /**
-    * Randomizes the walls of the maze. (currently only the horizontal walls)
+    * Randomizes the walls of the maze.
     */
    private void randomizeWalls() {
-      for(int j = 0; j < horizontalWalls[0].length; j++) {
-         int noWallIndex = (int) Math.floor(Math.random() * horizontalWalls.length);
-         for(int i = 0; i < horizontalWalls.length; i++) {
+      for(int j = 0; j < walls[0].length; j++) {
+         int noWallIndex = (int) Math.floor(Math.random() * walls.length);
+         for(int i = 0; i < walls.length; i++) {
             if(i != noWallIndex)
-               horizontalWalls[i][j] = true;
+               walls[i][j] = true;
             else
-               horizontalWalls[i][j] = false;
+               walls[i][j] = false;
          }
       }
    }
@@ -83,7 +89,7 @@ public class Maze {
     */
    public boolean moveUp() {
       int[] position = getLoc();
-      if(position[1] == 0 || horizontalWalls[position[0]][position[1] - 1])
+      if(position[1] == 0 || walls[position[0]][position[1] - 1])
          return false;
       else {
          maze[position[0]][position[1]] = false;
@@ -99,7 +105,7 @@ public class Maze {
     */
    public boolean moveDown() {
       int[] position = getLoc();
-      if(position[1] == maze[0].length - 1 || horizontalWalls[position[0]][position[1]])
+      if(position[1] == maze[0].length - 1 || walls[position[0]][position[1]])
          return false;
       else {
          maze[position[0]][position[1]] = false;
@@ -115,7 +121,7 @@ public class Maze {
     */
    public boolean moveLeft() {
       int[] position = getLoc();
-      if(position[0] == 0 || verticalWalls[position[0] - 1][position[1]])
+      if(position[0] == 0)
          return false;
       else {
          maze[position[0]][position[1]] = false;
@@ -131,12 +137,27 @@ public class Maze {
     */
    public boolean moveRight() {
       int[] position = getLoc();
-      if(position[0] == maze.length - 1 || verticalWalls[position[0]][position[1]])
+      if(position[0] == maze.length - 1)
          return false;
       else {
          maze[position[0]][position[1]] = false;
          maze[position[0] + 1][position[1]] = true;
          return true;
+      }
+   }
+   
+   /**
+    * Checks for an encounter.
+    *
+    * @return a BattleClass object if there is an encounter, {@code null} otherwise
+    */
+   public BattleClass encounter() {
+      int chance = (int) Math.ceil(Math.random() * 100);
+      if(chance < encounterRate) {
+         return new BattleClass(party, new SlimeBall(), new SlimeBall(), new SlimeBall());
+      }
+      else {
+         return null;
       }
    }
    
@@ -164,7 +185,7 @@ public class Maze {
    @Override
    public String toString() {
       ArrayList<String> rows = new ArrayList<>();
-      ArrayList<String> hWalls = new ArrayList<>();
+      ArrayList<String> wallList = new ArrayList<>();
       for(int j = 0; j < maze[0].length; j++) {
          String s = "";
          for(int i = 0; i < maze.length; i++) {
@@ -175,22 +196,22 @@ public class Maze {
          }
          rows.add(s);
       }
-      for(int j = 0; j < horizontalWalls[0].length; j++) {
+      for(int j = 0; j < walls[0].length; j++) {
          String s = "";
-         for(int i = 0; i < horizontalWalls.length; i++) {
-            if(horizontalWalls[i][j])
-               s += "_";
+         for(int i = 0; i < walls.length; i++) {
+            if(walls[i][j])
+               s += "+";
             else
                s += " ";
          }
-         hWalls.add(s);
+         wallList.add(s);
       }
       String s = "";
       int i;
-      for(i = 0; i < hWalls.size(); i++) {
+      for(i = 0; i < wallList.size(); i++) {
          s += rows.get(i);
          s += "\n";
-         s += hWalls.get(i);
+         s += wallList.get(i);
          s += "\n";
       }
       s += rows.get(i);
