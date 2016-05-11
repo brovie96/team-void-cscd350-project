@@ -14,6 +14,7 @@ import teamvoid.monster.EvilLeperachan;
 import teamvoid.weapons.StaffOfPain;
 import teamvoid.monster.SlimeBall;
 import teamvoid.monster.Dragon;
+import teamvoid.ui.I_UI;
 
 import java.util.*;
 import java.lang.*;
@@ -25,6 +26,7 @@ public class BattleClassCopy{
    private ArrayList<A_Monster> list;
    private  A_Hero playerOne,playerTwo, playerThree;
    private A_Monster monster = null;
+   private I_UI ui;
   
     
    public BattleClassCopy(Party p, A_Monster... m1){
@@ -38,7 +40,8 @@ public class BattleClassCopy{
       this.party = p;
 
    }
-   public void battle(){
+   public void battle(I_UI ui){
+      this.ui = ui;
       int heroTurns = 0, monsterTrigger = 1, allPlayersHealth = 1;
       party.getHeroOne().setInitialStats(); 
       party.getHeroTwo().setInitialStats();
@@ -218,7 +221,8 @@ public class BattleClassCopy{
       //check for special attack;
       //check if hero wants to use potion
       int monstersHealth;
-      monstersHealth = monster.getHealth() - player.getAttackDamage(); 
+      monstersHealth = monster.getHealth() - player.getAttackDamage();
+      ui.damageDealtToMonster(monster, player.getAttackDamage(), monstersHealth); 
       monster.setHealth(monstersHealth);      
       
    }
@@ -253,19 +257,19 @@ public class BattleClassCopy{
    public void battleCalc(A_Hero pl, A_Monster m){
       if(m.checkMagic()){
                   int heroHealth = pl.getHealth() - (m.addBoost()- pl.getMagicResist());
-                   
+                  ui.damageDealtToHero(pl, m.addBoost()- pl.getMagicResist(), heroHealth); 
                   pl.setHealth(heroHealth);
                }
                else if(!m.checkMagic()){
                   if(m.checkArmorPiercing()){
                      int heroHealth = pl.getHealth() - (m.addBoost() - pl.getDefense());
-                    
+                     ui.damageDealtToHero(pl, m.addBoost() - pl.getDefense(), heroHealth);
                      pl.setHealth(heroHealth);
                   }
                   else if(!m.checkArmorPiercing()){
                      int heroHealth = 0;
                      heroHealth = pl.getHealth() - (m.addBoost() - (pl.getDefense() + pl.getArmor())); 
-                    
+                     ui.damageDealtToHero(pl, m.addBoost() - (pl.getDefense() + pl.getArmor()), heroHealth);
                      pl.setHealth(heroHealth);
                   }
                }

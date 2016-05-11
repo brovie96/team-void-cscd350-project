@@ -13,7 +13,7 @@ public class SlimeBall extends A_Monster {
       
    }
    public void setHealth(int health){
-      health = health;
+      this.health = health;
    }
    public void setSlimeBallPD(int pd){
       physicalDamage = pd;

@@ -16,7 +16,7 @@ public class EvilLeperachan extends A_Monster {
       magicDamage = 4;
    }
    public void setHealth(int health){
-      health = health;
+      this.health = health;
    }
    public void setEvilLeperachanD(int defense){
       defense = defense;
