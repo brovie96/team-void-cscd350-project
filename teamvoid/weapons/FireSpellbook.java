@@ -1,4 +1,4 @@
-package TeamVoid.Weapons;
+package teamvoid.weapons;
 
 public class FireSpellbook extends A_MagicWeapon {
    

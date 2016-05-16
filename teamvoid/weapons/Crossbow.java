@@ -1,4 +1,4 @@
-package TeamVoid.Weapons;
+package teamvoid.weapons;
 
 public class Crossbow extends A_PhysicalWeapon {
    

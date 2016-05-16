@@ -1,4 +1,4 @@
-package TeamVoid.Hero;
+package teamvoid.hero;
 
 public class WarriorAttackMove implements I_HeroAttackMove {
 

@@ -1,6 +1,6 @@
-package TeamVoid.Bag;
-import  TeamVoid.Monster.*;
-import  TeamVoid.Weapons.*;
+package teamvoid.bag;
+import  teamvoid.monster.*;
+import  teamvoid.weapons.*;
 
 public class Bag{
    private A_Weapon[] weaponArray;

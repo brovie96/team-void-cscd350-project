@@ -1,5 +1,5 @@
-package TeamVoid.Potion;
-import TeamVoid.Hero.*;
+package teamvoid.potion;
+import teamvoid.hero.*;
 
 public class BoostHealth implements I_Potion{
    public void potionBoost(A_Hero a){

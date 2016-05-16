@@ -1,8 +1,8 @@
-package TeamVoid.Battle;
-import TeamVoid.party.Party;
-import TeamVoid.Hero.*;
-import TeamVoid.Monster.*;
-import TeamVoid.Weapons.*;
+package teamvoid.battle;
+import teamvoid.party.Party;
+import teamvoid.hero.*;
+import teamvoid.monster.*;
+import teamvoid.weapons.*;
 
 public class Test
 {

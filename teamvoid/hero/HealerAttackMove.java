@@ -1,4 +1,4 @@
-package TeamVoid.Hero;
+package teamvoid.hero;
 
 public class HealerAttackMove implements I_HeroAttackMove {
    private int health;

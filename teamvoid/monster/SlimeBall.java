@@ -1,5 +1,5 @@
-package TeamVoid.Monster;
-import TeamVoid.Weapons.*;
+package teamvoid.monster;
+import teamvoid.weapons.*;
 
 public class SlimeBall extends A_Monster {
   

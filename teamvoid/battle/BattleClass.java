@@ -1,18 +1,18 @@
- package TeamVoid.Battle;
- import TeamVoid.party.Party;
- import TeamVoid.Hero.A_Hero;
- import TeamVoid.Monster.A_Monster;
- import TeamVoid.Hero.Warrior;
- import TeamVoid.Hero.Healer;
- import TeamVoid.Monster.Necromancer;
- import TeamVoid.Hero.Sorecor;
- import TeamVoid.Monster.Goblin;
- import TeamVoid.Weapons.GoblinClub;
- import TeamVoid.Weapons.EvilPot;
- import TeamVoid.Monster.EvilLeperachan;
- import TeamVoid.Weapons.StaffOfPain;
- import TeamVoid.Monster.SlimeBall;
- import TeamVoid.Monster.Dragon;
+ package teamvoid.battle;
+ import teamvoid.party.Party;
+ import teamvoid.hero.A_Hero;
+ import teamvoid.monster.A_Monster;
+ import teamvoid.hero.Warrior;
+ import teamvoid.hero.Healer;
+ import teamvoid.monster.Necromancer;
+ import teamvoid.hero.Sorecor;
+ import teamvoid.monster.Goblin;
+ import teamvoid.weapons.GoblinClub;
+ import teamvoid.weapons.EvilPot;
+ import teamvoid.monster.EvilLeperachan;
+ import teamvoid.weapons.StaffOfPain;
+ import teamvoid.monster.SlimeBall;
+ import teamvoid.monster.Dragon;
 
 import java.util.*;
 

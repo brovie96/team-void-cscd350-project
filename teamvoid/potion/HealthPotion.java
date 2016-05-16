@@ -1,5 +1,5 @@
-package TeamVoid.Potion;
-import TeamVoid.Hero.*;
+package teamvoid.potion;
+import teamvoid.hero.*;
 
 public class HealthPotion extends Potion{
    
