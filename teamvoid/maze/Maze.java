@@ -2,6 +2,7 @@ package teamvoid.maze;
 
 import teamvoid.battle.BattleClassCopy;
 import teamvoid.monster.*;
+import teamvoid.weapons.GoblinClub;
 import teamvoid.party.Party;
 import teamvoid.ui.I_UI;
 
@@ -154,7 +155,7 @@ public class Maze {
    public BattleClassCopy encounter() {
       int chance = (int) Math.ceil(Math.random() * 100);
       if(chance < encounterRate) {
-         return new BattleClassCopy(party, new SlimeBall(), new SlimeBall(), new SlimeBall());
+         return new BattleClassCopy(party, new SlimeBall(), new Goblin(new GoblinClub()));
       }
       else {
          return null;

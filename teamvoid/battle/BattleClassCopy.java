@@ -78,6 +78,9 @@ public class BattleClassCopy{
 
             heroTurns = 0;
          }
+                  else{
+            monsterBattlesPlayer();
+         }
          allPlayersHealth = preCheckAllPlayersHealth();
          monsterTrigger = preCheckAllMonstersHealth();
          if(monsterTrigger  == 0){
@@ -86,9 +89,7 @@ public class BattleClassCopy{
          else if(allPlayersHealth == 0){
             //players dead
          }
-         else{
-            monsterBattlesPlayer();
-         }
+
          
          
       } 
