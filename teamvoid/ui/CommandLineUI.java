@@ -85,6 +85,7 @@ public class CommandLineUI implements I_UI {
             System.out.println("Encounter met!");
             this.battle = battle;
             this.battle.battle(this);
+            this.battle = null;
          }
       }
    }
@@ -98,6 +99,7 @@ public class CommandLineUI implements I_UI {
             System.out.println("Encounter met!");
             this.battle = battle;
             this.battle.battle(this);
+            this.battle = null;
          }
       }
    }
@@ -111,6 +113,7 @@ public class CommandLineUI implements I_UI {
             System.out.println("Encounter met!");
             this.battle = battle;
             this.battle.battle(this);
+            this.battle = null;
          }
       }
    }
@@ -124,6 +127,7 @@ public class CommandLineUI implements I_UI {
             System.out.println("Encounter met!");
             this.battle = battle;
             this.battle.battle(this);
+            this.battle = null;
          }
       }
    }

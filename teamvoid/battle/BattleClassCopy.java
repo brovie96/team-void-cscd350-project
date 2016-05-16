@@ -16,6 +16,7 @@
  import teamvoid.monster.Dragon;
  import teamvoid.potion.*;
  import teamvoid.bag.*;
+ import teamvoid.ui.I_UI;
 
 import java.util.*;
 import java.lang.*;
@@ -240,6 +241,7 @@ public class BattleClassCopy{
       }
       else{
            monstersHealth = monster.getHealth() - player.getAttackDamage(); 
+           ui.damageDealtToMonster(monster, player.getAttackDamage(), monstersHealth);
            monster.setHealth(monstersHealth); 
            if(monstersHealth <= 0){
                Bag b = new Bag();
@@ -293,7 +295,8 @@ public class BattleClassCopy{
                      int heroHealth = 0;
 
                      if(m.carryDefaultWeapon().equals("Yes")){
-                        heroHealth = pl.getHealth() - (m.addBoost() - (pl.getDefense() + pl.getArmor())); 
+                        heroHealth = pl.getHealth() - (m.addBoost() - (pl.getDefense() + pl.getArmor()));
+                        ui.damageDealtToHero(pl, m.addBoost() - (pl.getDefense() + pl.getArmor()), heroHealth); 
                      }
                      else{
                        int r = m.getRawAttackDamage() - pl.getDefense();
@@ -301,6 +304,7 @@ public class BattleClassCopy{
                           r = r * -1;
                        }
                         heroHealth = pl.getHealth() - r;
+                        ui.damageDealtToHero(pl, r, heroHealth); 
                      }
                      pl.setHealth(heroHealth);
                   }
