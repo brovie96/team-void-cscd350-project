@@ -6,7 +6,8 @@ public class HealerAttackMove implements I_HeroAttackMove {
    public HealerAttackMove(){
    
    }
-   public void getAttackMove(){
-      health = 2;
+   public void getAttackMove(A_Hero a){
+      int health = a.getHealth() + 2;
+      a.setHealth(health);
    }
 }

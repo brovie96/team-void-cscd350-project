@@ -1,5 +1,5 @@
 package teamvoid.monster;
-import teamvoid.weapons.EvilPot;
+import teamvoid.weapons.*;
 
 public class EvilLeperachan extends A_Monster {
 
@@ -15,8 +15,9 @@ public class EvilLeperachan extends A_Monster {
       magicResist = 4;
       magicDamage = 4;
    }
-   public void setHealth(int health){
-      this.health = health;
+
+   public void setHealth(int healtha){
+      health = healtha;
    }
    public void setEvilLeperachanD(int defense){
       defense = defense;
@@ -33,7 +34,7 @@ public class EvilLeperachan extends A_Monster {
    public int getDefense(){
       return defense;
    }
-   public int getEvilLeperachanMD(){
+   public int getRawAttackDamage(){
       return magicDamage;
    }
    public int getMagicResist(){
@@ -52,8 +53,19 @@ public class EvilLeperachan extends A_Monster {
       return false;
    }
    public int addBoost(){
-      return evil.getMagicPowerBoost() + getEvilLeperachanMD();
+      return evil.getMagicPowerBoost() + getRawAttackDamage();
    }
+   
+   public A_Weapon getWeaponDrop(A_Monster a){
+      return new FireSpellbook();
+   } 
+   public String carryDefaultWeapon(){
+      return "Yes";
+   }
+
+
+
+   
    public String getTypeMonster(){
       return "Evil Leperchan";
    }

@@ -1,16 +1,17 @@
 package teamvoid.hero;
 
 public class WarriorAttackMove implements I_HeroAttackMove {
-   private int physicalAttack;
-   private int defense;
+
    
    public WarriorAttackMove(){
    
    }
    
-   public void getAttackMove(){
-      physicalAttack = 2;
-      defense = 2;
+   public void getAttackMove(A_Hero p){
+      int physicalAttack = p.getAttackDamage() + 2;
+      p.setAttackDamage(physicalAttack);  
+      int defense = p.getDefense() - 2;
+      p.setDefense(defense);    
    }
 
 

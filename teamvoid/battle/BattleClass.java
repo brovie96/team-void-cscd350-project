@@ -1,5 +1,4 @@
  package teamvoid.battle;
- 
  import teamvoid.party.Party;
  import teamvoid.hero.A_Hero;
  import teamvoid.monster.A_Monster;

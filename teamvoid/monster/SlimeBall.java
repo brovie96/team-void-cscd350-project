@@ -1,4 +1,5 @@
 package teamvoid.monster;
+import teamvoid.weapons.*;
 
 public class SlimeBall extends A_Monster {
   
@@ -12,8 +13,9 @@ public class SlimeBall extends A_Monster {
       magicResist = 3;
       
    }
-   public void setHealth(int health){
-      this.health = health;
+   
+   public void setHealth(int healtha){
+      health = healtha;
    }
    public void setSlimeBallPD(int pd){
       physicalDamage = pd;
@@ -27,7 +29,7 @@ public class SlimeBall extends A_Monster {
    public int getHealth(){
       return health;
    }
-   public int getSlimePD(){
+   public int getRawAttackDamage(){
       return physicalDamage;
    }
    public int getDefense(){
@@ -45,6 +47,12 @@ public class SlimeBall extends A_Monster {
    public int addBoost(){
       return 0;
    }
+    public A_Weapon getWeaponDrop(A_Monster a){
+      return new Ring();
+   } 
+   public String carryDefaultWeapon(){
+      return "no";
+   } 
 
    public String getTypeMonster(){
       return "SlimeBall";

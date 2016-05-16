@@ -1,5 +1,5 @@
 package teamvoid.monster;
-import teamvoid.weapons.GoblinClub;
+import teamvoid.weapons.*;
 
 public class Goblin extends A_Monster {
    private int armor;
@@ -15,8 +15,8 @@ public class Goblin extends A_Monster {
       magicResist = 2;
       armor = 2;
    }
-   public void setHealth(int healthd){
-      health = healthd;
+   public void setHealth(int healtha){
+      health = healtha;
    }
    public void setGoblinPD(int pd){
       physicalDamage = pd;
@@ -30,7 +30,7 @@ public class Goblin extends A_Monster {
    public int getHealth(){
       return health;
    }
-   public int getGoblinPD(){
+   public int getRawAttackDamage(){
       return physicalDamage;
    }
    public int getMagicResist(){
@@ -56,8 +56,16 @@ public class Goblin extends A_Monster {
       return false;
    }
    public int addBoost(){
-      return club.getAttackBoost() + getGoblinPD();
+      return club.getAttackBoost() + getRawAttackDamage();
    }
+    public A_Weapon getWeaponDrop(A_Monster a){
+      return new Crossbow();
+   } 
+   public String carryDefaultWeapon(){
+      return "Yes";
+   }  
+
+   
    public String getTypeMonster(){
       return "Goblin";
    }

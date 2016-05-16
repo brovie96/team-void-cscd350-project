@@ -24,11 +24,13 @@ public abstract class A_Hero {
    
    public abstract void setHealth(int healtha);
    public abstract void setArmor(int armorr);
-  
-
+   public abstract void setDefense(int defensee);
+   public abstract void setMagicResist(int m);
+   public abstract void setAttackDamage(int a);
+   public abstract void setMagicAttack(int ad);
    
-   public void getAttackMove(){
-     attack.getAttackMove();
+   public void getAttackMove(A_Hero p){
+     attack.getAttackMove(p);
    }
    public void getSpecialAttackMove(){
       //to get the special attack move

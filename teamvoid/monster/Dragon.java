@@ -1,4 +1,5 @@
 package teamvoid.monster;
+import  teamvoid.weapons.*;
 
 public class Dragon extends A_Monster {
    private int magicDamage;
@@ -13,8 +14,8 @@ public class Dragon extends A_Monster {
       magicResist = 2;
       magicDamage = 6;
    }
-   public void setHealth(int health){
-      this.health = health;
+   public void setHealth(int healtha){
+      this.health = healtha;
    }
    public void setPhysicalDamage(int physicalDamage){
       this.physicalDamage = physicalDamage;
@@ -31,7 +32,7 @@ public class Dragon extends A_Monster {
    public int getHealth(){
       return health;
    }
-   public int getPhysicalDamage(){
+   public int getRawAttackDamage(){
       return physicalDamage;
    }  
    public int getMagicDamage(){
@@ -51,6 +52,12 @@ public class Dragon extends A_Monster {
    }
    public int addBoost(){
       return 0;
+   }
+   public A_Weapon getWeaponDrop(A_Monster a){
+      return new FireSpellbook();
+   } 
+   public String carryDefaultWeapon(){
+      return "no";
    }
 
 

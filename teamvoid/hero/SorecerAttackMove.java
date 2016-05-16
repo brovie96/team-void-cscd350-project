@@ -1,13 +1,14 @@
 package teamvoid.hero;
 
+
 public class SorecerAttackMove implements I_HeroAttackMove {
-   private int lightingAttack;
+   
    
    public SorecerAttackMove(){
    
    }
-   public void getAttackMove(){
-      lightingAttack = 3;
+   public void getAttackMove(A_Hero p){
+      int magicDamage = p.getMagicAttack() + 3;
    }
 
 }

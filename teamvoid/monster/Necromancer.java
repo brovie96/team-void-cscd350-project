@@ -1,5 +1,5 @@
 package teamvoid.monster;
-import teamvoid.weapons.StaffOfPain;
+import teamvoid.weapons.*;
 
 public class Necromancer extends A_Monster {
    private int magicDamage;
@@ -14,8 +14,8 @@ public class Necromancer extends A_Monster {
       defense = 3;
       magicResist = 5;
    }
-   public void setHealth(int health){
-      this.health = health;
+   public void setHealth(int healtha){
+      this.health = healtha;
    }
    public void setMagicDamage(int magicDamage){
       this.magicDamage = magicDamage;
@@ -29,7 +29,7 @@ public class Necromancer extends A_Monster {
    public int getHealth(){
       return health;
    }
-   public int getMagicDamage(){
+   public int getRawAttackDamage(){
       return magicDamage;
    }  
    public int getDefense(){
@@ -50,8 +50,15 @@ public class Necromancer extends A_Monster {
       }
       return false;
    }
+    public String carryDefaultWeapon(){
+      return "Yes";
+   } 
+    public A_Weapon getWeaponDrop(A_Monster a){
+      return new StaffOfPain();
+   } 
+
    public int addBoost(){
-      return staff.getMagicPowerBoost() + getMagicDamage();
+      return staff.getMagicPowerBoost() + getRawAttackDamage();
    }
 
    public String getTypeMonster(){

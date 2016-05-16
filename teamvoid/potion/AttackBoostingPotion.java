@@ -5,22 +5,6 @@ public class AttackBoostingPotion extends Potion {
    private int magicDamage = 2;
    
    public AttackBoostingPotion(){
-   
+      potion = new BoostAttackDamage();      
    }
-   public void setAttackPotion(int attackPotion)
-   {
-      this.attack = attackPotion;
-   }
-   public void setMagicDamagePotion(int magicDamage)
-   {
-      this.magicDamage = magicDamage;
-   }
-   public int getAttackPotionStat()
-   {
-      return attack;
-   }
-   public int getMagicDamagePotionStat()
-   {
-      return magicDamage;
-   }  
 }
