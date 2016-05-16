@@ -15,9 +15,34 @@ public class Bag{
          weaponArrayCounter++;
       }
    }
-   
-   
+   public String getWeapon(int position){
+      String weapon="";
+      if(weaponArray[position] != null){
+         weapon = weaponArray[position].getClass().getSimpleName();
+      }
+       return weapon;
+   }
    public int getWeaponCounter(){
       return weaponArrayCounter;
    }
+   public void listWeapons(){
+      String weapons="";
+      for(int i = 0; i < weaponArray.length; i++){
+         System.out.println("Weapon: " + getWeapon(i));
+         
+        
+      }
+   }
+   public A_Weapon findWeapon(String name){
+       A_Weapon s = null;
+       for(int i = 0; i < weaponArray.length; i++){
+         if(name.equals(getWeapon(i))){
+            s = weaponArray[i];
+         }
+       }
+       return s;
+   }
+   //add list weapons
+   //user pick weapon
+   //call method to switch weapon in A_Hero, parameter A_Hero
 }

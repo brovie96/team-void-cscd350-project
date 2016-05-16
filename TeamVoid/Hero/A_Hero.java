@@ -1,4 +1,5 @@
 package TeamVoid.Hero;
+import TeamVoid.Weapons.*;
 
 public abstract class A_Hero {
    protected int health;
@@ -14,6 +15,8 @@ public abstract class A_Hero {
    }
    public abstract void setInitialStats();
    public abstract String getTypeHero();
+   public abstract void equipWeapon(A_Weapon w);
+  
    
    public abstract int getHealth();
    public abstract int getAttackDamage();
@@ -21,7 +24,8 @@ public abstract class A_Hero {
    public abstract int getMagicResist();
    public abstract int getMagicAttack();
    public abstract int getArmor();
-   
+   public abstract A_Weapon getWeapon(); 
+  
    public abstract void setHealth(int healtha);
    public abstract void setArmor(int armorr);
    public abstract void setDefense(int defensee);
@@ -32,9 +36,7 @@ public abstract class A_Hero {
    public void getAttackMove(A_Hero p){
      attack.getAttackMove(p);
    }
-   public void getSpecialAttackMove(){
-      //to get the special attack move
-   }
+   
 
 
 }

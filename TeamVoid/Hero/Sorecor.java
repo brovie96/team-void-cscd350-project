@@ -1,8 +1,9 @@
 package TeamVoid.Hero;
+import TeamVoid.Weapons.*;
 
 public class Sorecor extends A_Hero{
   
-   
+   private A_Weapon heroWeapon;
    
    public Sorecor(){
       attack = new SorecerAttackMove();
@@ -55,5 +56,10 @@ public class Sorecor extends A_Hero{
    {
       return "Sorecor";
    }
-
+   public A_Weapon getWeapon(){
+      return heroWeapon;
+   }
+   public void equipWeapon(A_Weapon w){
+      this.heroWeapon = w;
+   }
 }

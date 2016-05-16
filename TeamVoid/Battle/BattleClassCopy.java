@@ -16,6 +16,7 @@
  import TeamVoid.Monster.Dragon;
  import TeamVoid.Potion.*;
  import TeamVoid.Bag.*;
+ import TeamVoid.Weapons.*;
 
 
 import java.util.*;
@@ -29,7 +30,8 @@ public class BattleClassCopy{
    private ArrayList<A_Monster> list;
    private  A_Hero playerOne,playerTwo, playerThree;
    private A_Monster monster = null;
-  
+   private Bag b;
+   
     
    public BattleClassCopy(Party p, A_Monster... m1){
       list = new ArrayList<A_Monster>();
@@ -220,34 +222,33 @@ public class BattleClassCopy{
       return monster;
    }
  public void playerAttacksMonster(A_Hero player, A_Monster monster){
-      Potion p = new Potion();
+  
         int monstersHealth;
       Scanner userAnswer = new Scanner(System.in);
-      System.out.println("Would you like to use a potion(cost 1 turn)\n, switch out a weapon(cost 1 turn)\n" + 
-       "use your special attack if avaible");
+      System.out.println("Would you like to use a potion(cost 1 turn)\nswitch out a weapon(cost 1 turn)\n" + 
+       "use your special attack\nor attack monster");
       String answer = userAnswer.nextLine();
       if(answer.equals("Potion")){
          applyPotionStats(player);
       }
       else if(answer.equals("SwitchWeapon")){
-         
+         pickWeapon(player);
+          
       }
       else if(answer.equals("SpecialAttack")){
           player.getAttackMove(player);
           //implemnte method in hero to revert stats, same thing with potoins
       }
-      else{
+      else if(answer.equals("AttackMonster")){
            monstersHealth = monster.getHealth() - player.getAttackDamage(); 
            monster.setHealth(monstersHealth); 
            if(monstersHealth <= 0){
-               Bag b = new Bag();
+               b = new Bag();
                b.addWeaponArray(monster);
-               //add weapon drop here
+              
            }
       }
-  
-          
-      
+     
    }
    public void monsterBattlesPlayer(){
       Random rVarible = new Random();
@@ -316,9 +317,7 @@ public class BattleClassCopy{
            p = new HealthPotion();
                p.getPotionBoost(player);
                healthPotionTrigger = 1;
-
-         
-      
+     
       }
       else if(answer.equals("DefenseBoost")){
                p = new DefenseBoostingPotion();
@@ -334,7 +333,22 @@ public class BattleClassCopy{
          
       }
    }
- 
+   public void pickWeapon(A_Hero playery){
+
+      A_Weapon s = null;
+      Scanner weaponPick = new Scanner(System.in);
+      System.out.println("Choose your weapons");
+      b.listWeapons();
+      String userPickWeapon = weaponPick.nextLine();
+      s = b.findWeapon(userPickWeapon);
+      if(s == null){
+         System.out.println("No Weapons equiped\n");
+      }
+      else{
+         playery.equipWeapon(s);
+      }
+      
+   }
  
   
 }//end of class

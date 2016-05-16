@@ -1,6 +1,9 @@
 package TeamVoid.Hero;
+import TeamVoid.Weapons.*;
 
 public class Healer extends A_Hero {
+   private A_Weapon heroWeapon;
+   
    public Healer(){
       attack = new HealerAttackMove();
    }
@@ -50,5 +53,11 @@ public class Healer extends A_Hero {
    }
    public String getTypeHero(){
       return "Healer";
+   }
+   public A_Weapon getWeapon(){
+      return heroWeapon;
+   }
+   public void equipWeapon(A_Weapon w){
+      this.heroWeapon = w;
    }
 }
