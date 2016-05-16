@@ -1,4 +1,4 @@
-package teamvoid.hero;
+package TeamVoid.Hero;
 
 public class Sorecor extends A_Hero{
   
