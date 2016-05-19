@@ -22,7 +22,12 @@ public class Maze {
    private boolean[][] walls;
    
    /**
-    * The encounter rate for this maze, in percent chance.
+    * The minimum encounter rate for this maze, in percent chance.
+    */
+   private final int MIN_ENCOUNTER_RATE;
+   
+   /**
+    * The current encounter rate for this maze, in percent chance.
     */
    private int encounterRate;
    
@@ -42,7 +47,8 @@ public class Maze {
     */
    public Maze(int level, Party party) {
       this.party = party;
-      encounterRate = 10 * level;
+      MIN_ENCOUNTER_RATE = 10 * level;
+      encounterRate = MIN_ENCOUNTER_RATE;
       maze = new boolean[level + 3][level + 3];
       walls = new boolean[level + 3][level + 2];
       maze[0][maze[0].length - 1] = true; //set starting position to bottom left of maze
@@ -155,9 +161,11 @@ public class Maze {
    public BattleClassCopy encounter() {
       int chance = (int) Math.ceil(Math.random() * 100);
       if(chance < encounterRate) {
+         encounterRate = MIN_ENCOUNTER_RATE;
          return new BattleClassCopy(party, new SlimeBall(), new Goblin(new GoblinClub()));
       }
       else {
+         encounterRate += 5;
          return null;
       }
    }
