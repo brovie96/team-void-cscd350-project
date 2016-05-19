@@ -16,7 +16,7 @@
  import teamvoid.monster.Dragon;
  import teamvoid.potion.*;
  import teamvoid.bag.*;
-
+ import teamvoid.ui.I_UI;
 
 import java.util.*;
 import java.lang.*;
@@ -29,6 +29,7 @@ public class BattleClassCopy{
    private ArrayList<A_Monster> list;
    private  A_Hero playerOne,playerTwo, playerThree;
    private A_Monster monster = null;
+   private I_UI ui;
   
     
    public BattleClassCopy(Party p, A_Monster... m1){
@@ -42,7 +43,8 @@ public class BattleClassCopy{
       this.party = p;
 
    }
-   public void battle(){
+   public void battle(I_UI ui){
+      this.ui = ui;
       int heroTurns = 0, monsterTrigger = 1, allPlayersHealth = 1;
       party.getHeroOne().setInitialStats(); 
       party.getHeroTwo().setInitialStats();
@@ -79,6 +81,9 @@ public class BattleClassCopy{
 
             heroTurns = 0;
          }
+                  else{
+            monsterBattlesPlayer();
+         }
          allPlayersHealth = preCheckAllPlayersHealth();
          monsterTrigger = preCheckAllMonstersHealth();
          if(monsterTrigger  == 0){
@@ -87,9 +92,7 @@ public class BattleClassCopy{
          else if(allPlayersHealth == 0){
             //players dead
          }
-         else{
-            monsterBattlesPlayer();
-         }
+
          
          
       } 
@@ -238,6 +241,7 @@ public class BattleClassCopy{
       }
       else{
            monstersHealth = monster.getHealth() - player.getAttackDamage(); 
+           ui.damageDealtToMonster(monster, player.getAttackDamage(), monstersHealth);
            monster.setHealth(monstersHealth); 
            if(monstersHealth <= 0){
                Bag b = new Bag();
@@ -245,8 +249,6 @@ public class BattleClassCopy{
                //add weapon drop here
            }
       }
-  
-          
       
    }
    public void monsterBattlesPlayer(){
@@ -280,19 +282,21 @@ public class BattleClassCopy{
    public void battleCalc(A_Hero pl, A_Monster m){
       if(m.checkMagic()){
                   int heroHealth = pl.getHealth() - (m.addBoost()- pl.getMagicResist());
-                   
+                  ui.damageDealtToHero(pl, m.addBoost()- pl.getMagicResist(), heroHealth); 
                   pl.setHealth(heroHealth);
                }
                else if(!m.checkMagic()){
                   if(m.checkArmorPiercing()){
                      int heroHealth = pl.getHealth() - (m.addBoost() - pl.getDefense());
-                    
+                     ui.damageDealtToHero(pl, m.addBoost() - pl.getDefense(), heroHealth);
                      pl.setHealth(heroHealth);
                   }
                   else if(!m.checkArmorPiercing()){
                      int heroHealth = 0;
+
                      if(m.carryDefaultWeapon().equals("Yes")){
-                        heroHealth = pl.getHealth() - (m.addBoost() - (pl.getDefense() + pl.getArmor())); 
+                        heroHealth = pl.getHealth() - (m.addBoost() - (pl.getDefense() + pl.getArmor()));
+                        ui.damageDealtToHero(pl, m.addBoost() - (pl.getDefense() + pl.getArmor()), heroHealth); 
                      }
                      else{
                        int r = m.getRawAttackDamage() - pl.getDefense();
@@ -300,6 +304,7 @@ public class BattleClassCopy{
                           r = r * -1;
                        }
                         heroHealth = pl.getHealth() - r;
+                        ui.damageDealtToHero(pl, r, heroHealth); 
                      }
                      pl.setHealth(heroHealth);
                   }

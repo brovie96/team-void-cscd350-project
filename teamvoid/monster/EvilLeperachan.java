@@ -15,6 +15,7 @@ public class EvilLeperachan extends A_Monster {
       magicResist = 4;
       magicDamage = 4;
    }
+
    public void setHealth(int healtha){
       health = healtha;
    }

@@ -13,6 +13,7 @@ public class SlimeBall extends A_Monster {
       magicResist = 3;
       
    }
+   
    public void setHealth(int healtha){
       health = healtha;
    }

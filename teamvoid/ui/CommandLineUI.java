@@ -1,6 +1,6 @@
 package teamvoid.ui;
 
-import teamvoid.battle.BattleClass;
+import teamvoid.battle.BattleClassCopy;
 import teamvoid.hero.*;
 import teamvoid.monster.A_Monster;
 import teamvoid.maze.Maze;
@@ -13,7 +13,7 @@ public class CommandLineUI implements I_UI {
    
    private static Scanner key = new Scanner(System.in);
    private Maze maze;
-   private BattleClass battle;
+   private BattleClassCopy battle;
    
    public CommandLineUI(Maze maze) {
       this.maze = maze;
@@ -21,14 +21,14 @@ public class CommandLineUI implements I_UI {
    
    @Override
    public void damageDealtToHero(A_Hero hero, int damage, int currentHealth) {
-      System.out.println(hero + " has taken " + damage + " damage.");
-      System.out.println(hero + " now has " + currentHealth + " health.");
+      System.out.println(hero.getTypeHero() + " has taken " + damage + " damage.");
+      System.out.println(hero.getTypeHero() + " now has " + currentHealth + " health.");
    }
    
    @Override
    public void damageDealtToMonster(A_Monster monster, int damage, int currentHealth) {
-      System.out.println(monster + " has taken " + damage + " damage.");
-      System.out.println(monster + " now has " + currentHealth + " health.");
+      System.out.println(monster.getTypeMonster() + " has taken " + damage + " damage.");
+      System.out.println(monster.getTypeMonster() + " now has " + currentHealth + " health.");
    }
    
    public void prompt() {
@@ -80,13 +80,12 @@ public class CommandLineUI implements I_UI {
       boolean success = maze.moveLeft();
       if(success) {
          System.out.println("Move successful.");
-         BattleClass battle = maze.encounter();
-         if(battle == null) {
-            prompt();
-         }
-         else {
+         BattleClassCopy battle = maze.encounter();
+         if(battle != null) {
             System.out.println("Encounter met!");
-            prompt();
+            this.battle = battle;
+            this.battle.battle(this);
+            this.battle = null;
          }
       }
    }
@@ -95,13 +94,12 @@ public class CommandLineUI implements I_UI {
       boolean success = maze.moveRight();
       if(success) {
          System.out.println("Move successful.");
-         BattleClass battle = maze.encounter();
-         if(battle == null) {
-            prompt();
-         }
-         else {
+         BattleClassCopy battle = maze.encounter();
+         if(battle != null) {
             System.out.println("Encounter met!");
-            prompt();
+            this.battle = battle;
+            this.battle.battle(this);
+            this.battle = null;
          }
       }
    }
@@ -110,13 +108,12 @@ public class CommandLineUI implements I_UI {
       boolean success = maze.moveUp();
       if(success) {
          System.out.println("Move successful.");
-         BattleClass battle = maze.encounter();
-         if(battle == null) {
-            prompt();
-         }
-         else {
+         BattleClassCopy battle = maze.encounter();
+         if(battle != null) {
             System.out.println("Encounter met!");
-            prompt();
+            this.battle = battle;
+            this.battle.battle(this);
+            this.battle = null;
          }
       }
    }
@@ -125,13 +122,12 @@ public class CommandLineUI implements I_UI {
       boolean success = maze.moveDown();
       if(success) {
          System.out.println("Move successful.");
-         BattleClass battle = maze.encounter();
-         if(battle == null) {
-            prompt();
-         }
-         else {
+         BattleClassCopy battle = maze.encounter();
+         if(battle != null) {
             System.out.println("Encounter met!");
-            prompt();
+            this.battle = battle;
+            this.battle.battle(this);
+            this.battle = null;
          }
       }
    }
