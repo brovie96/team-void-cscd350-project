@@ -14,9 +14,11 @@ public class CommandLineUI implements I_UI {
    private static Scanner key = new Scanner(System.in);
    private Maze maze;
    private BattleClassCopy battle;
+   private int level = 1;
    
    public CommandLineUI(Maze maze) {
       this.maze = maze;
+      maze.setUI(this);
    }
    
    @Override
@@ -29,6 +31,13 @@ public class CommandLineUI implements I_UI {
    public void damageDealtToMonster(A_Monster monster, int damage, int currentHealth) {
       System.out.println(monster.getTypeMonster() + " has taken " + damage + " damage.");
       System.out.println(monster.getTypeMonster() + " now has " + currentHealth + " health.");
+   }
+   
+   @Override
+   public void changeLevel() {
+      level++;
+      maze = new Maze(level, maze.getParty());
+      maze.setUI(this);
    }
    
    public void prompt() {
@@ -76,6 +85,9 @@ public class CommandLineUI implements I_UI {
             this.battle = null;
          }
       }
+      else {
+         System.out.println("Ran into a wall.");
+      }
    }
    
    public void moveRight() {
@@ -89,6 +101,9 @@ public class CommandLineUI implements I_UI {
             this.battle.battle(this);
             this.battle = null;
          }
+      }
+      else {
+         System.out.println("Ran into a wall.");
       }
    }
    
@@ -104,6 +119,9 @@ public class CommandLineUI implements I_UI {
             this.battle = null;
          }
       }
+      else {
+         System.out.println("Ran into a wall.");
+      }
    }
    
    public void moveDown() {
@@ -118,13 +136,15 @@ public class CommandLineUI implements I_UI {
             this.battle = null;
          }
       }
+      else {
+         System.out.println("Ran into a wall.");
+      }
    }
    
    /**
     * Starts up the game with the command line UI.
     */
    public static void main(String[] args) {
-      int level = 1;
       CommandLineUI ui = new CommandLineUI(new Maze(1, new Party(new Warrior(), new Sorecor(), new Healer())));
       while(true) {
          ui.prompt();

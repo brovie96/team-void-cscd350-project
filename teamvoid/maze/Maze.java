@@ -3,6 +3,7 @@ package teamvoid.maze;
 import teamvoid.battle.BattleClassCopy;
 import teamvoid.monster.*;
 import teamvoid.weapons.GoblinClub;
+import teamvoid.weapons.StaffOfPain;
 import teamvoid.party.Party;
 import teamvoid.ui.I_UI;
 
@@ -32,6 +33,16 @@ public class Maze {
    private int encounterRate;
    
    /**
+    * The level that this maze represents.
+    */
+   private int level;
+   
+   /**
+    * A reference to the UI.
+    */
+   private I_UI ui;
+   
+   /**
     * The party of heroes in the maze.
     */
    private Party party;
@@ -46,13 +57,23 @@ public class Maze {
     * @param level the level number to be used, from 1 to 5
     */
    public Maze(int level, Party party) {
+      this.level = level;
       this.party = party;
-      MIN_ENCOUNTER_RATE = 10 * level;
+      MIN_ENCOUNTER_RATE = 10 * this.level;
       encounterRate = MIN_ENCOUNTER_RATE;
-      maze = new boolean[level + 3][level + 3];
-      walls = new boolean[level + 3][level + 2];
+      maze = new boolean[this.level + 3][this.level + 3];
+      walls = new boolean[this.level + 3][this.level + 2];
       maze[0][maze[0].length - 1] = true; //set starting position to bottom left of maze
       randomizeWalls();
+   }
+   
+   /**
+    * Attaches maze to UI.
+    *
+    * @param The UI to be attached
+    */
+   public void setUI(I_UI ui) {
+      this.ui = ui;
    }
    
    /**
@@ -87,6 +108,15 @@ public class Maze {
          }
       }
       return null;
+   }
+   
+   /**
+    * Returns the party in the maze
+    *
+    * @return The party
+    */
+   public Party getParty() {
+      return party;
    }
    
    /**
@@ -159,14 +189,28 @@ public class Maze {
     * @return a BattleClassCopy object if there is an encounter, {@code null} otherwise
     */
    public BattleClassCopy encounter() {
-      int chance = (int) Math.ceil(Math.random() * 100);
-      if(chance < encounterRate) {
-         encounterRate = MIN_ENCOUNTER_RATE;
-         return new BattleClassCopy(party, new SlimeBall(), new Goblin(new GoblinClub()));
+      int[] loc = getLoc();
+      if(loc[0] == (maze.length - 1) && loc[1] == 0) {
+         ui.changeLevel();
+         switch(level) {
+            case 1:  return null;
+            case 2:  return new BattleClassCopy(party, new Dragon());
+            case 3:  return new BattleClassCopy(party, new Necromancer(new StaffOfPain()));
+            case 4:  return new BattleClassCopy(party, new Dragon());
+            case 5:  return new BattleClassCopy(party, new Dragon(), new Necromancer(new StaffOfPain()));
+            default: return null;
+         }
       }
       else {
-         encounterRate += 5;
-         return null;
+         int chance = (int) Math.ceil(Math.random() * 100);
+         if(chance < encounterRate) {
+            encounterRate = MIN_ENCOUNTER_RATE;
+            return new BattleClassCopy(party, new SlimeBall(), new Goblin(new GoblinClub()));
+         }
+         else {
+            encounterRate += 5;
+            return null;
+         }
       }
    }
    
