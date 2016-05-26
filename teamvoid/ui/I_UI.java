@@ -22,4 +22,9 @@ public interface I_UI {
     * @param currentHealth The current remaining health of the monster
     */
    public void damageDealtToMonster(A_Monster monster, int damage, int currentHealth);
+   
+   /**
+    * Informs the UI that the level needs to be changed.
+    */
+   public void changeLevel();
 }

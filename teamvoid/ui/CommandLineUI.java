@@ -14,9 +14,11 @@ public class CommandLineUI implements I_UI {
    private static Scanner key = new Scanner(System.in);
    private Maze maze;
    private BattleClassCopy battle;
+   private int level = 1;
    
    public CommandLineUI(Maze maze) {
       this.maze = maze;
+      maze.setUI(this);
    }
    
    @Override
@@ -31,6 +33,13 @@ public class CommandLineUI implements I_UI {
       System.out.println(monster.getTypeMonster() + " now has " + currentHealth + " health.");
    }
    
+   @Override
+   public void changeLevel() {
+      level++;
+      maze = new Maze(level, maze.getParty());
+      maze.setUI(this);
+   }
+   
    public void prompt() {
       if(battle == null) {
          System.out.println(maze);
@@ -40,40 +49,28 @@ public class CommandLineUI implements I_UI {
    }
    
    public void options() {
-      if(battle == null) {
-         System.out.println("1: Move left");
-         System.out.println("2: Move right");
-         System.out.println("3: Move up");
-         System.out.println("4: Move down");
-         while(true) {
-            int choice = getInt();
-            switch(choice) {
-               case 1:  moveLeft();
-                        break;
-               case 2:  moveRight();
-                        break;
-               case 3:  moveUp();
-                        break;
-               case 4:  moveDown();
-                        break;
-               default: System.out.println("Invalid option.");
-                        continue;
-            }
-            break;
+      System.out.println("Use WASD to move, press enter to send move (one space at a time)");
+      while(true) {
+         int choice = getChar();
+         switch(choice) {
+            case 'a':  moveLeft();
+                     break;
+            case 'd':  moveRight();
+                     break;
+            case 'w':  moveUp();
+                     break;
+            case 's':  moveDown();
+                     break;
+            default: System.out.println("Invalid option.");
+                     continue;
          }
+         break;
       }
    }
    
-   public int getInt() {
-      while(true) {
-         try {
-            int result = key.nextInt();
-            return result;
-         } catch(InputMismatchException e) {
-            key.nextLine();
-            System.out.println("Please enter an integer.");
-         }
-      }
+   public char getChar() {
+      String placeHolder = key.nextLine();
+      return placeHolder.toCharArray()[0];
    }
    
    public void moveLeft() {
@@ -87,6 +84,9 @@ public class CommandLineUI implements I_UI {
             this.battle.battle(this);
             this.battle = null;
          }
+      }
+      else {
+         System.out.println("Ran into a wall.");
       }
    }
    
@@ -102,6 +102,9 @@ public class CommandLineUI implements I_UI {
             this.battle = null;
          }
       }
+      else {
+         System.out.println("Ran into a wall.");
+      }
    }
    
    public void moveUp() {
@@ -115,6 +118,9 @@ public class CommandLineUI implements I_UI {
             this.battle.battle(this);
             this.battle = null;
          }
+      }
+      else {
+         System.out.println("Ran into a wall.");
       }
    }
    
@@ -130,13 +136,15 @@ public class CommandLineUI implements I_UI {
             this.battle = null;
          }
       }
+      else {
+         System.out.println("Ran into a wall.");
+      }
    }
    
    /**
     * Starts up the game with the command line UI.
     */
    public static void main(String[] args) {
-      int level = 1;
       CommandLineUI ui = new CommandLineUI(new Maze(1, new Party(new Warrior(), new Sorecor(), new Healer())));
       while(true) {
          ui.prompt();
