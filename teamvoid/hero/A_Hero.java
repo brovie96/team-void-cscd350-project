@@ -1,6 +1,8 @@
 package teamvoid.hero;
 
-public abstract class A_Hero {
+import java.io.Serializable;
+
+public abstract class A_Hero implements Serializable {
    protected int health;
    protected int attackDamage;
    protected int defense;

@@ -1,7 +1,8 @@
 package teamvoid.party;
 import teamvoid.hero.A_Hero;
+import java.io.Serializable;
 
-public class Party {
+public class Party implements Serializable {
    A_Hero playerOne = null;
    A_Hero playerTwo = null;
    A_Hero playerThree = null;
