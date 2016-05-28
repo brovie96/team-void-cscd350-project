@@ -40,7 +40,7 @@ public class Maze implements Serializable {
    /**
     * A reference to the UI.
     */
-   private I_UI ui;
+   private transient I_UI ui;
    
    /**
     * The party of heroes in the maze.

@@ -6,6 +6,11 @@ import teamvoid.monster.A_Monster;
 import teamvoid.maze.Maze;
 import teamvoid.party.Party;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.sql.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -16,8 +21,10 @@ public class CommandLineUI implements I_UI {
    private Maze maze;
    private BattleClassCopy battle;
    private int level = 1;
+   private Connection c = null;
    
-   public CommandLineUI(Maze maze) {
+   public CommandLineUI(Connection c, Maze maze) {
+      this.c = c;
       this.maze = maze;
       maze.setUI(this);
    }
@@ -49,7 +56,7 @@ public class CommandLineUI implements I_UI {
       }
    }
    
-   public void prompt() {
+   public void prompt() throws SQLException {
       if(battle == null) {
          System.out.println(maze);
          System.out.println("What would you like to do?");
@@ -57,8 +64,8 @@ public class CommandLineUI implements I_UI {
       }
    }
    
-   public void options() {
-      System.out.println("Use WASD to move, press enter to send move (one space at a time)");
+   public void options() throws SQLException {
+      System.out.println("Use WASD to move, press enter to send move");
       System.out.println("Type \"#\" to save");
       while(true) {
          int choice = getChar();
@@ -153,12 +160,68 @@ public class CommandLineUI implements I_UI {
       }
    }
    
-   public static Connection c = null;
+   public void save() throws SQLException {
+      int saveSlot = inputInt("What slot to save in? ");
+      String sql = "SELECT count(*) " +
+                   "FROM SAVES " +
+                   "WHERE SLOT = ?";
+      PreparedStatement stmt = c.prepareStatement(sql);
+      stmt.setInt(1, saveSlot);
+      stmt.execute();
+      ResultSet result = stmt.getResultSet();
+      int saveCount = result.getInt("count(*)");
+      result.close();
+      stmt.close();
+      if(saveCount != 0) { //save slot in use
+         System.out.println("Save slot in use. Overwrite? (y/n)");
+         while(true) {
+            switch(getChar()) {
+               case 'y':   sql = "DELETE FROM SAVES " +
+                                 "WHERE SLOT = ?";
+                           stmt = c.prepareStatement(sql);
+                           stmt.setInt(1, saveSlot);
+                           stmt.executeUpdate();
+                           stmt.close();
+                           saveToSlot(saveSlot);
+                           break;
+               case 'n':   save();
+                           break;
+               default:    System.out.println("Please enter either 'y' or 'n'.");
+                           continue;
+            }
+            break;
+         }
+      }
+      else
+         saveToSlot(saveSlot);
+   }
+   
+   private void saveToSlot(int saveSlot) throws SQLException {
+      ByteArrayOutputStream b = new ByteArrayOutputStream();
+      ObjectOutputStream o = null;
+      try {
+         o = new ObjectOutputStream(b);
+         o.writeObject(maze);
+      } catch(IOException e) {
+         System.out.println("Save failed.");
+         return;
+      }
+      byte[] saveData = b.toByteArray();
+      String sql = "INSERT INTO SAVES (SLOT, DATA) " +
+                   "VALUES (?, ?)";
+      PreparedStatement stmt = c.prepareStatement(sql);
+      stmt.setInt(1, saveSlot);
+      stmt.setBytes(2, saveData);
+      stmt.executeUpdate();
+      stmt.close();
+      System.out.println("Saved to slot " + saveSlot);
+   }
    
    /**
     * Starts up the game with the command line UI.
     */
    public static void main(String[] args) throws SQLException {
+      Connection c = null;
       try {
          Class.forName("org.sqlite.JDBC");
          c = DriverManager.getConnection("jdbc:sqlite:test.db");
@@ -166,32 +229,56 @@ public class CommandLineUI implements I_UI {
          System.err.println(e.getClass().getName() + ": " + e.getMessage());
          System.exit(0);
       }
-      System.out.println("Checking for save database...");
+      System.out.println("Checking for save table...");
       Statement stmt = c.createStatement();
       String sql = "SELECT count(*) " +
                    "FROM sqlite_master " +
                    "WHERE type='table' AND name='SAVES'";
       stmt.execute(sql);
       ResultSet result = stmt.getResultSet();
-      if(result.getInt("count(*)") == 0) {
+      if(result.getInt("count(*)") == 0) { //table does not exist
          result.close();
          stmt.close();
-         System.out.println("Creating new save database...");
+         System.out.println("Creating new save table...");
          stmt = c.createStatement();
          sql = "CREATE TABLE SAVES " +
-               "(NUM INT PRIMARY KEY NOT NULL, " +
+               "(SLOT INT PRIMARY KEY NOT NULL, " +
                "DATA BLOB NOT NULL)";
          stmt.executeUpdate(sql);
          stmt.close();
       }
+      else {
+         System.out.println("Save table found!");
+      }
       CommandLineUI ui = null;
       boolean loadSave = promptLoadSave();
       if(loadSave) {
-         int saveNum = loadSaveNum();
-         
+         int saveSlot = loadSaveSlot(c);
+         sql = "SELECT DATA " +
+               "FROM SAVES " +
+               "WHERE SLOT = ?";
+         PreparedStatement pstmt = c.prepareStatement(sql);
+         pstmt.setInt(1, saveSlot);
+         pstmt.execute();
+         result = pstmt.getResultSet();
+         //Blob blob = result.getBlob("DATA");
+         //byte[] saveData = blob.getBytes(1L, (int) blob.length());
+         byte[] saveData = result.getBytes("DATA");
+         Maze maze = null;
+         ByteArrayInputStream b = new ByteArrayInputStream(saveData);
+         ObjectInputStream o = null;
+         try {
+            o = new ObjectInputStream(b);
+            maze = (Maze) o.readObject();
+         } catch(Exception e) {
+            e.printStackTrace(System.out);
+            System.out.println("Load failed.");
+            System.exit(1);
+         }
+         ui = new CommandLineUI(c, maze);
       }
       else {
-         ui = new CommandLineUI(new Maze(1, new Party(new Warrior(), new Sorecor(), new Healer())));
+         ui = new CommandLineUI(c, new Maze(1, new Party(new Warrior(), new Sorecor(), new Healer())));
       }
       while(true) {
          ui.prompt();
@@ -210,8 +297,25 @@ public class CommandLineUI implements I_UI {
       }
    }
    
-   public static int loadSaveNum() {
-      return inputInt("Which save would you like to load? ");
+   public static int loadSaveSlot(Connection c) throws SQLException {
+      while(true) {
+         int slot = inputInt("Which save would you like to load? ");
+         String sql = "SELECT COUNT(*) " +
+                      "FROM SAVES " +
+                      "WHERE SLOT = ?";
+         PreparedStatement stmt = c.prepareStatement(sql);
+         stmt.setInt(1, slot);
+         stmt.execute();
+         ResultSet result = stmt.getResultSet();
+         int count = result.getInt("count(*)");
+         result.close();
+         stmt.close();
+         if(count != 1) {
+            System.out.println("Slot " + slot + " is not in use.");
+         }
+         else
+            return slot;
+      }
    }
    
    public static int inputInt(String prompt) {
