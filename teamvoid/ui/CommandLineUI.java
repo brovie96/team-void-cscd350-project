@@ -32,13 +32,19 @@ public class CommandLineUI implements I_UI {
    @Override
    public void damageDealtToHero(A_Hero hero, int damage, int currentHealth) {
       System.out.println(hero.getTypeHero() + " has taken " + damage + " damage.");
-      System.out.println(hero.getTypeHero() + " now has " + currentHealth + " health.");
+      if(currentHealth <= 0)
+         System.out.println(hero.getTypeHero() + " is dead.");
+      else
+         System.out.println(hero.getTypeHero() + " now has " + currentHealth + " health.");
    }
    
    @Override
    public void damageDealtToMonster(A_Monster monster, int damage, int currentHealth) {
       System.out.println(monster.getTypeMonster() + " has taken " + damage + " damage.");
-      System.out.println(monster.getTypeMonster() + " now has " + currentHealth + " health.");
+      if(currentHealth <= 0)
+         System.out.println(monster.getTypeMonster() + " is dead.");
+      else
+         System.out.println(monster.getTypeMonster() + " now has " + currentHealth + " health.");
    }
    
    @Override
