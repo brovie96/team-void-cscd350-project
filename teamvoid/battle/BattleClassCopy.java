@@ -29,6 +29,7 @@ public class BattleClassCopy{
    private ArrayList<A_Monster> list;
    private  A_Hero playerOne,playerTwo, playerThree;
    private A_Monster monster = null;
+   private Bag b;
    private I_UI ui;
   
     
@@ -234,11 +235,18 @@ public class BattleClassCopy{
          applyPotionStats(player);
       }
       else if(answer.equals("SwitchWeapon")){
-         
+          pickWeapon(player);
       }
       else if(answer.equals("SpecialAttack")){
           player.getAttackMove(player);
-          //implemnte method in hero to revert stats, same thing with potoins
+          int monsterHealth = monster.getHealth() - player.getAttackDamage();
+          monster.setHealth(monsterHealth);
+           if(monsterHealth <= 0){
+               b = new Bag();
+               b.addWeaponArray(monster);
+              
+           }
+
       }
       else{
            monstersHealth = monster.getHealth() - player.getAttackDamage(); 
@@ -349,7 +357,23 @@ public class BattleClassCopy{
          
       }
    }
- 
+ public void pickWeapon(A_Hero playery){
+
+      A_Weapon s = null;
+      Scanner weaponPick = new Scanner(System.in);
+      System.out.println("Choose your weapons");
+      b.listWeapons();
+      String userPickWeapon = weaponPick.nextLine();
+      s = b.findWeapon(userPickWeapon);
+      if(s == null){
+         System.out.println("No Weapons equiped\n");
+      }
+      else{
+         playery.equipWeapon(s);
+      }
+      
+   }
+
  
   
 }//end of class
