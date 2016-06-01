@@ -24,6 +24,7 @@ public abstract class A_Hero implements Serializable {
    public abstract int getMagicResist();
    public abstract int getMagicAttack();
    public abstract int getArmor();
+   public abstract A_Weapon getWeapon(); 
    
    public abstract void setHealth(int healtha);
    public abstract void setArmor(int armorr);
