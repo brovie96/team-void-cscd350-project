@@ -1,7 +1,7 @@
 package teamvoid.hero;
 
 public class Sorecor extends A_Hero{
-  
+  private A_Weapon heroWeapon;
    
    
    public Sorecor(){
@@ -54,6 +54,12 @@ public class Sorecor extends A_Hero{
    public String getTypeHero()
    {
       return "Sorecor";
+   }
+   public A_Weapon getWeapon(){
+      return heroWeapon;
+   }
+   public void equipWeapon(A_Weapon w){
+      this.heroWeapon = w;
    }
 
 }
