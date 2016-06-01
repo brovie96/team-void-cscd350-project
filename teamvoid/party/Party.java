@@ -24,4 +24,13 @@ public class Party implements Serializable {
    {
       return playerThree;
    }
+    public void boostGlobalHealth(){
+      int p1Health = playerOne.getHealth() + 3;
+      playerOne.setHealth(p1Health);
+      int p2Health = playerTwo.getHealth() + 3;
+      playerTwo.setHealth(p2Health);
+      int p3Health = playerThree.getHealth() + 3;
+      playerThree.setHealth(p3Health);
+   }
+
 }
