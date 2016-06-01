@@ -16,6 +16,7 @@ public abstract class A_Hero implements Serializable {
    }
    public abstract void setInitialStats();
    public abstract String getTypeHero();
+    public abstract void equipWeapon(A_Weapon w);
    
    public abstract int getHealth();
    public abstract int getAttackDamage();
@@ -34,9 +35,7 @@ public abstract class A_Hero implements Serializable {
    public void getAttackMove(A_Hero p){
      attack.getAttackMove(p);
    }
-   public void getSpecialAttackMove(){
-      //to get the special attack move
-   }
+  
 
 
 }
