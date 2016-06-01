@@ -79,10 +79,11 @@ public class BattleClassCopy{
                playerAttacksMonster(playerThree, monster);
             }
 
-            heroTurns = 0;
+            heroTurns = 3;
          }
                   else{
             monsterBattlesPlayer();
+            heroTurns = 0;
          }
          allPlayersHealth = preCheckAllPlayersHealth();
          monsterTrigger = preCheckAllMonstersHealth();
@@ -269,14 +270,23 @@ public class BattleClassCopy{
          i = 1;
         }while(monster.getHealth() <= 0);
         
-        if(playerOne.getHealth() >= 0){
-            battleCalc(playerOne, monster);
+        int playerToAttack = (int) Math.ceil(Math.random() * 3);
+        
+        if(playerToAttack == 1) {
+            if(playerOne.getHealth() >= 0)
+               battleCalc(playerOne, monster);
+            else
+               playerToAttack = 2;
         }
-        else if(playerTwo.getHealth() >= 0){
-            battleCalc(playerTwo, monster);
+        if(playerToAttack == 2) {
+            if(playerTwo.getHealth() >= 0)
+               battleCalc(playerTwo, monster);
+            else
+               playerToAttack = 3;
         }
-        else if(playerThree.getHealth() >= 0){
-            battleCalc(playerThree, monster);
+        if(playerToAttack == 3 && playerThree.getHealth() >= 0) {
+            if(playerTwo.getHealth() >= 0)
+               battleCalc(playerTwo, monster);
         }
    }
    public void battleCalc(A_Hero pl, A_Monster m){

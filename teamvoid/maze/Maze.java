@@ -2,14 +2,14 @@ package teamvoid.maze;
 
 import teamvoid.battle.BattleClassCopy;
 import teamvoid.monster.*;
-import teamvoid.weapons.GoblinClub;
-import teamvoid.weapons.StaffOfPain;
+import teamvoid.weapons.*;
 import teamvoid.party.Party;
 import teamvoid.ui.I_UI;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Maze {
+public class Maze implements Serializable {
    
    /**
     * The maze itself. The cell that represents the party's location is set
@@ -40,7 +40,7 @@ public class Maze {
    /**
     * A reference to the UI.
     */
-   private I_UI ui;
+   private transient I_UI ui;
    
    /**
     * The party of heroes in the maze.
@@ -205,7 +205,7 @@ public class Maze {
          int chance = (int) Math.ceil(Math.random() * 100);
          if(chance < encounterRate) {
             encounterRate = MIN_ENCOUNTER_RATE;
-            return new BattleClassCopy(party, new SlimeBall(), new Goblin(new GoblinClub()));
+            return new BattleClassCopy(party, new SlimeBall(), new Goblin(new GoblinClub()), new EvilLeperachan(new EvilPot()));
          }
          else {
             encounterRate += 5;
