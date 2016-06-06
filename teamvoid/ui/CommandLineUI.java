@@ -70,7 +70,7 @@ public class CommandLineUI implements I_UI {
       }
    }
    
-   public void options() throws SQLException {
+   private void options() throws SQLException {
       System.out.println("Use WASD to move, press enter to send move");
       System.out.println("Type \"#\" to save");
       while(true) {
@@ -111,6 +111,7 @@ public class CommandLineUI implements I_UI {
             case 2:  int level = inputInt("Input level to warp to: ");
                      maze = new Maze(level, maze.getParty());
                      maze.setUI(this);
+                     this.level = level;
                      break;
             case 3:  if(maze.toggleEncountersEnabled())
                         System.out.println("Encounters are now enabled.");
@@ -124,7 +125,7 @@ public class CommandLineUI implements I_UI {
       }
    }
    
-   public char getChar() {
+   private char getChar() {
       String placeHolder = key.nextLine();
       return placeHolder.toCharArray()[0];
    }
