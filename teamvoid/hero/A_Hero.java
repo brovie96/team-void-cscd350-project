@@ -1,5 +1,7 @@
 package teamvoid.hero;
 
+import teamvoid.weapons.A_Weapon;
+
 import java.io.Serializable;
 
 public abstract class A_Hero implements Serializable {

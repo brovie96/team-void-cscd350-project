@@ -8,6 +8,7 @@
  import teamvoid.monster.Necromancer;
  import teamvoid.hero.Sorecor;
  import teamvoid.monster.Goblin;
+ import teamvoid.weapons.A_Weapon;
  import teamvoid.weapons.GoblinClub;
  import teamvoid.weapons.EvilPot;
  import teamvoid.monster.EvilLeperachan;
@@ -240,6 +241,7 @@ public class BattleClassCopy{
       else if(answer.equals("SpecialAttack")){
           player.getAttackMove(player);
           int monsterHealth = monster.getHealth() - player.getAttackDamage();
+          ui.damageDealtToMonster(monster, player.getAttackDamage(), monsterHealth);
           monster.setHealth(monsterHealth);
            if(monsterHealth <= 0){
                b = new Bag();

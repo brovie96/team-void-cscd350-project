@@ -76,6 +76,8 @@ public class CommandLineUI implements I_UI {
       while(true) {
          int choice = getChar();
          switch(choice) {
+            case 'C':   cheatMenu();
+                        break;
             case 'a':   moveLeft();
                         break;
             case 'd':   moveRight();
@@ -88,6 +90,35 @@ public class CommandLineUI implements I_UI {
                         break;
             default:    System.out.println("Invalid option.");
                         continue;
+         }
+         break;
+      }
+   }
+   
+   private void cheatMenu() {
+      System.out.println("You have accessed cheats.");
+      System.out.println("What would you like to do?");
+      while(true) {
+         System.out.println("1: Warp to position in maze");
+         System.out.println("2: Warp to level");
+         System.out.println("3: Enable/Disable all but boss encounters");
+         System.out.println("-1: Exit menu");
+         switch(inputInt("")) {
+            case 1:  int xPos = inputInt("Input an x position: ");
+                     int yPos = inputInt("Input a y position: ");
+                     maze.moveToCoords(xPos, yPos);
+                     break;
+            case 2:  int level = inputInt("Input level to warp to: ");
+                     maze = new Maze(level, maze.getParty());
+                     maze.setUI(this);
+                     break;
+            case 3:  if(maze.toggleEncountersEnabled())
+                        System.out.println("Encounters are now enabled.");
+                     else
+                        System.out.println("Encounters are now disabled.");
+            case -1: break;
+            default: System.out.println("Invalid option.");
+                     continue;
          }
          break;
       }

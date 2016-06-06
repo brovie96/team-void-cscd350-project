@@ -33,6 +33,11 @@ public class Maze implements Serializable {
    private int encounterRate;
    
    /**
+    * Whether encounters are enabled (used in cheats).
+    */
+   private boolean encountersEnabled = true;
+   
+   /**
     * The level that this maze represents.
     */
    private int level;
@@ -201,7 +206,7 @@ public class Maze implements Serializable {
             default: return null;
          }
       }
-      else {
+      else if(encountersEnabled) {
          int chance = (int) Math.ceil(Math.random() * 100);
          if(chance < encounterRate) {
             encounterRate = MIN_ENCOUNTER_RATE;
@@ -212,6 +217,7 @@ public class Maze implements Serializable {
             return null;
          }
       }
+      else return null;
    }
    
    /**
@@ -228,6 +234,25 @@ public class Maze implements Serializable {
          maze[x][y] = true;
          return true;
       }
+   }
+   
+   /*
+    * Returns whether encounters are enabled
+    *
+    * @return the value of encountersEnabled
+    */
+   public boolean encountersEnabled() {
+      return encountersEnabled;
+   }
+   
+   /*
+    * Toggles encounters enabled (used in cheats)
+    *
+    * @return the new value of encountersEnabled
+    */
+   public boolean toggleEncountersEnabled() {
+      encountersEnabled = !encountersEnabled;
+      return encountersEnabled;
    }
    
    /**

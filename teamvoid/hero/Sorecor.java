@@ -1,5 +1,7 @@
 package teamvoid.hero;
 
+import teamvoid.weapons.A_Weapon;
+
 public class Sorecor extends A_Hero{
   private A_Weapon heroWeapon;
    
