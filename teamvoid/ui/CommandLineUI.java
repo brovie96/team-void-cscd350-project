@@ -22,6 +22,7 @@ public class CommandLineUI implements I_UI {
    private BattleClassCopy battle;
    private int level = 1;
    private Connection c = null;
+   private boolean gameOver = false;
    
    public CommandLineUI(Connection c, Maze maze) {
       this.c = c;
@@ -54,16 +55,18 @@ public class CommandLineUI implements I_UI {
          maze = new Maze(level, maze.getParty());
          maze.setUI(this);
       }
-      else {
+      else
+         gameOver = true;
+   }
+   
+   public void prompt() throws SQLException {
+      if(gameOver) {
          System.out.println("Conglaturation! A winner is you!!");
          System.out.println("Press enter to exit.");
          key.nextLine();
          System.exit(0);
       }
-   }
-   
-   public void prompt() throws SQLException {
-      if(battle == null) {
+      else if(battle == null) {
          System.out.println(maze);
          System.out.println("What would you like to do?");
          options();
@@ -314,6 +317,7 @@ public class CommandLineUI implements I_UI {
             System.exit(1);
          }
          ui = new CommandLineUI(c, maze);
+         ui.level = maze.getLevel();
       }
       else {
          ui = new CommandLineUI(c, new Maze(1, new Party(new Warrior(), new Sorecor(), new Healer())));

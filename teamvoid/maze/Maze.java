@@ -256,6 +256,15 @@ public class Maze implements Serializable {
    }
    
    /**
+    * Gets the level of the maze.
+    *
+    * @return the level of this maze
+    */
+   public int getLevel() {
+      return level;
+   }
+   
+   /**
     * Returns a visual representation of the maze, in string form.
     *
     * @return a visual representation of the maze, in string form
