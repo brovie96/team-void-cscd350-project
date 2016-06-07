@@ -30,7 +30,7 @@ public class BattleClassCopy{
    private ArrayList<A_Monster> list;
    private  A_Hero playerOne,playerTwo, playerThree;
    private A_Monster monster = null;
-   private Bag b;
+   private Bag b = new Bag();
    private I_UI ui;
   
     
@@ -244,7 +244,7 @@ public class BattleClassCopy{
           ui.damageDealtToMonster(monster, player.getAttackDamage(), monsterHealth);
           monster.setHealth(monsterHealth);
            if(monsterHealth <= 0){
-               b = new Bag();
+          
                b.addWeaponArray(monster);
               
            }
@@ -255,7 +255,7 @@ public class BattleClassCopy{
            ui.damageDealtToMonster(monster, player.getAttackDamage(), monstersHealth);
            monster.setHealth(monstersHealth); 
            if(monstersHealth <= 0){
-               Bag b = new Bag();
+           
                b.addWeaponArray(monster);
                //add weapon drop here
            }
@@ -365,14 +365,20 @@ public class BattleClassCopy{
       Scanner weaponPick = new Scanner(System.in);
       System.out.println("Choose your weapons");
       b.listWeapons();
-      String userPickWeapon = weaponPick.nextLine();
-      s = b.findWeapon(userPickWeapon);
-      if(s == null){
-         System.out.println("No Weapons equiped\n");
+      if(b.getWeaponCounter() == 0){
+        System.out.println("No Weapons\n");
       }
       else{
-         playery.equipWeapon(s);
+        String userPickWeapon = weaponPick.nextLine();
+         s = b.findWeapon(userPickWeapon);
+         if(s == null){
+            System.out.println("No Weapons equiped\n");
+         }
+         else{
+            playery.equipWeapon(s);
+         }
       }
+      
       
    }
 
